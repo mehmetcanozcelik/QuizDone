@@ -13,4 +13,20 @@ class AuthenticationService {
   Stream<Kullanici> get durumTakipcisi {
     return _firebaseAuth.onAuthStateChanged.map(_kullaniciOlustur);
   }
+
+  signupWithMail(String email, String password) async {
+    var loginCard = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    return _kullaniciOlustur(loginCard.user);
+  }
+
+  signinWithMail(String email, String password) async {
+    var loginCard = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    return _kullaniciOlustur(loginCard.user);
+  }
+
+  Future<void> signOut() {
+    return _firebaseAuth.signOut();
+  }
 }
