@@ -4,22 +4,35 @@ import 'package:flutter/material.dart';
 
 class Kullanici {
   final String id;
-  final String kullaniciAdi;
+  final String username;
+  final String email;
+  final String fotoUrl;
+  final String about;
 
-  Kullanici({required this.id, required this.kullaniciAdi});
+  Kullanici(
+      {required this.id,
+      required this.username,
+      required this.email,
+      required this.about,
+      required this.fotoUrl});
 
   factory Kullanici.firebasedenUret(FirebaseUser kullanici) {
     return Kullanici(
-      id: kullanici.uid,
-      kullaniciAdi: kullanici.displayName,
-    );
+        id: kullanici.uid,
+        username: kullanici.displayName,
+        email: kullanici.email,
+        fotoUrl: kullanici.photoUrl,
+        about: "");
   }
 
   factory Kullanici.dokumandanUret(DocumentSnapshot doc) {
     var docData = doc.data;
     return Kullanici(
       id: doc.documentID,
-      kullaniciAdi: docData['kullaniciAdi'],
+      username: docData['username'],
+      email: docData['email'],
+      fotoUrl: doc['fotoUrl'],
+      about: doc['about'],
     );
   }
 }

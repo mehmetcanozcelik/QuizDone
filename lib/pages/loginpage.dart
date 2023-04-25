@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, missing_return
 //@dart=2.9
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quizdone/models/kullanici.dart';
 import 'package:quizdone/pages/createAccount.dart';
+import 'package:quizdone/services/authenticationservices.dart';
+import 'package:quizdone/services/firestoreService.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -12,16 +16,19 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool loading = false;
+  String email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         body: Stack(
-      children: [
-        _pageElements(),
-        _loadingAnimation(),
-      ],
-    ));
+          children: [
+            _pageElements(),
+            _loadingAnimation(),
+          ],
+        ));
   }
 
   Widget _loadingAnimation() {
@@ -64,27 +71,30 @@ class _LoginPageState extends State<LoginPage> {
               }
               return null;
             },
+            onSaved: (enteredValue) => email = enteredValue,
           ),
           SizedBox(
             height: 10.0,
           ),
           TextFormField(
-              obscureText: true,
-              decoration: InputDecoration(
-                  hintText: "Password",
-                  errorStyle: TextStyle(fontSize: 14.0),
-                  prefixIcon: Icon(
-                    Icons.password_outlined,
-                    color: Colors.green[800],
-                  )),
-              validator: (enteredValue) {
-                if (enteredValue.isEmpty) {
-                  return "Please enter your password.";
-                } else if (enteredValue.trim().length < 4) {
-                  return "Password must be 4 or more characters.";
-                }
-                return null;
-              }),
+            obscureText: true,
+            decoration: InputDecoration(
+                hintText: "Password",
+                errorStyle: TextStyle(fontSize: 14.0),
+                prefixIcon: Icon(
+                  Icons.password_outlined,
+                  color: Colors.green[800],
+                )),
+            validator: (enteredValue) {
+              if (enteredValue.isEmpty) {
+                return "Please enter your password.";
+              } else if (enteredValue.trim().length < 4) {
+                return "Password must be 4 or more characters.";
+              }
+              return null;
+            },
+            onSaved: (enteredValue) => password = enteredValue,
+          ),
           SizedBox(
             height: 20.0,
           ),
@@ -129,10 +139,13 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(height: 10.0),
           Center(child: Text("or")),
           SizedBox(height: 10.0),
-          Image.asset(
-            'assets/googleLogin.png',
-            width: 200.0,
-            height: 40.0,
+          InkWell(
+            onTap: _signinWithGoogle,
+            child: Image.asset(
+              'assets/googleLogin.png',
+              width: 200.0,
+              height: 40.0,
+            ),
           ),
           SizedBox(height: 20.0),
           Center(child: Text("Forgot my Password")),
@@ -141,12 +154,74 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _loginMethod() {
+  void _loginMethod() async {
+    final _authenticationService =
+        Provider.of<AuthenticationService>(context, listen: false);
+
     if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
       setState(() {
         loading = true;
       });
+
+      try {
+        await _authenticationService.signinWithMail(email, password);
+      } catch (error) {
+        setState(() {
+          loading = false;
+        });
+        String errorCode = error.code;
+
+        showError(errorCode: errorCode);
+      }
     }
-    ;
+  }
+
+  void _signinWithGoogle() async {
+    var _authenticationService =
+        Provider.of<AuthenticationService>(context, listen: false);
+    setState(() {
+      loading = true;
+    });
+    try {
+      Kullanici kullanici = await _authenticationService.signinWithGoogle();
+      if (kullanici != null) {
+        Kullanici firestoreUser =
+            await FirestoreService().checkUser(kullanici.id);
+        if (firestoreUser == null) {
+          FirestoreService().createUser(
+              id: kullanici.id,
+              email: kullanici.email,
+              username: kullanici.username,
+              fotoUrl: kullanici.fotoUrl);
+        }
+      }
+    } catch (error) {
+      setState(() {
+        loading = false;
+      });
+      String errorCode = error.code;
+
+      showError(errorCode: errorCode);
+    }
+  }
+
+  showError({errorCode}) {
+    String errorMessage;
+
+    if (errorCode == "ERROR_USER_NOT_FOUND") {
+      errorMessage = "This user is not found.";
+    } else if (errorCode == "ERROR_INVALID_EMAIL") {
+      errorMessage = "This email is not valid.";
+    } else if (errorCode == "ERROR_WRONG_PASSWORD") {
+      errorMessage = "Your password is not correct.";
+    } else if (errorCode == "ERROR_USER_DISABLED") {
+      errorMessage = "This user is banned by admin.";
+    } else {
+      errorMessage = "Unidentified error has occurred. $errorCode ";
+    }
+
+    var snackBar = SnackBar(content: Text(errorMessage.toString()));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

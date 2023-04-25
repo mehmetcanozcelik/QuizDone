@@ -1,6 +1,7 @@
 //@dart=2.9
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quizdone/models/kullanici.dart';
 
 class AuthenticationService {
@@ -14,13 +15,13 @@ class AuthenticationService {
     return _firebaseAuth.onAuthStateChanged.map(_kullaniciOlustur);
   }
 
-  signupWithMail(String email, String password) async {
+  Future<Kullanici> signupWithMail(String email, String password) async {
     var loginCard = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     return _kullaniciOlustur(loginCard.user);
   }
 
-  signinWithMail(String email, String password) async {
+  Future<Kullanici> signinWithMail(String email, String password) async {
     var loginCard = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
     return _kullaniciOlustur(loginCard.user);
@@ -28,5 +29,17 @@ class AuthenticationService {
 
   Future<void> signOut() {
     return _firebaseAuth.signOut();
+  }
+
+  Future<Kullanici> signinWithGoogle() async {
+    GoogleSignInAccount googleAccount = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication GoogleAuthCard =
+        await googleAccount.authentication;
+    AuthCredential noPasswordAuthCard = GoogleAuthProvider.getCredential(
+        idToken: GoogleAuthCard.idToken,
+        accessToken: GoogleAuthCard.accessToken);
+    AuthResult loginCard =
+        await _firebaseAuth.signInWithCredential(noPasswordAuthCard);
+    return _kullaniciOlustur(loginCard.user);
   }
 }

@@ -1,6 +1,7 @@
 //@dart=2.9
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quizdone/models/kullanici.dart';
 import 'package:quizdone/pages/loginpage.dart';
 import 'package:quizdone/pages/mainpage.dart';
@@ -11,8 +12,10 @@ class Director extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _authenticationService =
+        Provider.of<AuthenticationService>(context, listen: false);
     return StreamBuilder(
-        stream: AuthenticationService().durumTakipcisi,
+        stream: _authenticationService.durumTakipcisi,
         // ignore: missing_return
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
