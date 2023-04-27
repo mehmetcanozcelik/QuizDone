@@ -14,10 +14,12 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: GestureDetector(
-              onTap: () => AuthenticationService().signOut(),
-              child: Text("Sign Out"))),
+      appBar: AppBar(
+        title: Image.asset(
+          "assets/logosec.png",
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }
