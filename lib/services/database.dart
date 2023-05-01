@@ -22,4 +22,8 @@ class DatabaseService {
       print(e.toString());
     });
   }
+
+  getQuizData() async {
+    return await Firestore.instance.collection("Quiz").snapshots();
+  }
 }
