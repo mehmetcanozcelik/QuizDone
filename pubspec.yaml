@@ -70,7 +70,10 @@ flutter:
      - assets/quizDonewhite.png
      - assets/logosec.png
      - assets/QuizDonecolor.png
-     - assets/deneme.jpg
+     - assets/background.jpg
+     - assets/backgroundd.jpg
+     - assets/backgrounddd.jpg
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
