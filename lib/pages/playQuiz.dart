@@ -6,6 +6,7 @@ import 'package:quizdone/constants.dart';
 import 'package:quizdone/models/questionModel.dart';
 import 'package:quizdone/pages/results.dart';
 import 'package:quizdone/services/database.dart';
+import 'package:quizdone/widgets/finishQuiz_button.dart';
 import 'package:quizdone/widgets/next_button.dart';
 import 'package:quizdone/widgets/option_card.dart';
 import 'package:quizdone/widgets/questionWidget.dart';
@@ -79,6 +80,17 @@ class _playQuizState extends State<playQuiz> {
     }
   }
 
+  void finishQuiz(int questionLength) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (ctx) => ResultBox(
+              result: score,
+              questionLength: questionLength,
+              onPressed: playAgain,
+            ));
+  }
+
   void checkAnswer(bool value) {
     if (isAlreadySelected == true) {
       return;
@@ -121,6 +133,8 @@ class _playQuizState extends State<playQuiz> {
               );
             } else if (snapshot.hasData) {
               var extractedData = snapshot.data as List<Question>;
+              int questionIndex = extractedData.length;
+
               return Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
@@ -141,55 +155,77 @@ class _playQuizState extends State<playQuiz> {
                     ),
                   ],
                 ),
-                body: Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/backgrounddd.jpg"),
-                          fit: BoxFit.cover)),
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    children: [
-                      QuestionWidget(
-                          question: extractedData[index].title,
-                          indexAction: index,
-                          totalQuestions: extractedData.length),
-                      Divider(
-                        color: Colors.black87,
-                      ),
-                      SizedBox(
-                        height: 25.0,
-                      ),
-                      for (int i = 0;
-                          i < extractedData[index].options.length;
-                          i++)
-                        GestureDetector(
-                          onTap: () => checkAnswer(
-                              extractedData[index].options.values.toList()[i]),
-                          child: OptionCard(
-                            option:
-                                extractedData[index].options.keys.toList()[i],
-                            color: isClicked
-                                ? extractedData[index]
-                                            .options
-                                            .values
-                                            .toList()[i] ==
-                                        true
-                                    ? correct
-                                    : incorrect
-                                : buttonColor,
-                          ),
+                body: (extractedData[index].subject == 'a')
+                    ? Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("assets/backgrounddd.jpg"),
+                                fit: BoxFit.cover)),
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Column(
+                          children: [
+                            QuestionWidget(
+                                question: extractedData[index].title,
+                                indexAction: index,
+                                totalQuestions: extractedData.length),
+                            Divider(
+                              color: Colors.black87,
+                            ),
+                            SizedBox(
+                              height: 25.0,
+                            ),
+                            for (int i = 0;
+                                i < extractedData[index].options.length;
+                                i++)
+                              GestureDetector(
+                                onTap: () => checkAnswer(extractedData[index]
+                                    .options
+                                    .values
+                                    .toList()[i]),
+                                child: OptionCard(
+                                  option: extractedData[index]
+                                      .options
+                                      .keys
+                                      .toList()[i],
+                                  color: isClicked
+                                      ? extractedData[index]
+                                                  .options
+                                                  .values
+                                                  .toList()[i] ==
+                                              true
+                                          ? correct
+                                          : incorrect
+                                      : buttonColor,
+                                ),
+                              ),
+                          ],
                         ),
-                    ],
-                  ),
-                ),
-                floatingActionButton: GestureDetector(
-                  onTap: () => nextQuestion(extractedData.length),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: NextButton(),
-                  ),
-                ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("assets/finish.jpg"),
+                                fit: BoxFit.cover)),
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      ),
+                floatingActionButton: (extractedData[index].subject == 'a')
+                    ? GestureDetector(
+                        onTap: () => nextQuestion(questionIndex),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: NextButton(),
+                        ),
+                      )
+                    : GestureDetector(
+                        onTap: () => finishQuiz(questionIndex),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: FinishQuizButton(),
+                        ),
+                      ),
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerFloat,
               );

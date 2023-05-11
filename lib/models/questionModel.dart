@@ -18,8 +18,13 @@ class Question {
   final String id;
   final String title;
   final Map<String, bool> options;
+  final String subject;
 
-  Question({@required this.id, @required this.title, @required this.options});
+  Question(
+      {@required this.id,
+      @required this.title,
+      @required this.options,
+      @required this.subject});
 
   @override
   String toString() {

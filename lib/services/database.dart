@@ -51,7 +51,8 @@ class DatabaseService {
         var newQuestion = Question(
             id: key,
             title: value['title'],
-            options: Map.castFrom(value['options']));
+            options: Map.castFrom(value['options']),
+            subject: value['subject']);
         newQuestions.add(newQuestion);
       });
       return newQuestions;
