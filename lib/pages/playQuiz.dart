@@ -10,15 +10,18 @@ import 'package:quizdone/widgets/finishQuiz_button.dart';
 import 'package:quizdone/widgets/next_button.dart';
 import 'package:quizdone/widgets/option_card.dart';
 import 'package:quizdone/widgets/questionWidget.dart';
+import 'package:quizdone/pages/mainpage.dart';
 
 class playQuiz extends StatefulWidget {
-  playQuiz({Key key}) : super(key: key);
-
+  final String quizId;
+  playQuiz(this.quizId);
   @override
-  State<playQuiz> createState() => _playQuizState();
+  State<playQuiz> createState() => _playQuizState(quizId);
 }
 
 class _playQuizState extends State<playQuiz> {
+  final String quizId;
+  _playQuizState(this.quizId);
   var db = DatabaseService();
 
   Future extractedData;
@@ -155,7 +158,7 @@ class _playQuizState extends State<playQuiz> {
                     ),
                   ],
                 ),
-                body: (extractedData[index].subject == 'a')
+                body: (extractedData[index].subject == quizId)
                     ? Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(
@@ -211,7 +214,7 @@ class _playQuizState extends State<playQuiz> {
                         height: MediaQuery.of(context).size.height,
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                       ),
-                floatingActionButton: (extractedData[index].subject == 'a')
+                floatingActionButton: (extractedData[index].subject == quizId)
                     ? GestureDetector(
                         onTap: () => nextQuestion(questionIndex),
                         child: Padding(

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 //@dart=2.9
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quizdone/constants.dart';
 import 'package:quizdone/pages/playQuiz.dart';
 import 'package:quizdone/pages/suggestQuiz.dart';
@@ -61,16 +62,18 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Image.asset(
-            "assets/QuizDonecolor.png",
-            scale: 3.0,
-          ),
+        centerTitle: true,
+        title: Image.asset(
+          "assets/QuizDonecolor.png",
+          scale: 3.0,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black54),
-        brightness: Brightness.light,
+        actions: [
+          IconButton(
+              onPressed: _signOutApp, icon: Icon(Icons.exit_to_app_rounded))
+        ],
       ),
       body: quizList(),
       floatingActionButton: FloatingActionButton(
@@ -81,6 +84,10 @@ class _MainPageState extends State<MainPage> {
         },
       ),
     );
+  }
+
+  void _signOutApp() {
+    Provider.of<AuthenticationService>(context, listen: false).signOut();
   }
 }
 
@@ -103,7 +110,7 @@ class QuizTile extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => playQuiz(),
+              builder: (context) => playQuiz(quizId),
             ));
       },
       child: Container(
