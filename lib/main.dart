@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quizdone/constants.dart';
 import 'package:quizdone/directed.dart';
 import 'package:quizdone/models/questionModel.dart';
 import 'package:quizdone/services/authenticationservices.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Projem',
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.purple,
         ),
         home: Director(),
       ),

@@ -77,6 +77,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: quizList(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         child: Icon(Icons.add_task),
         onPressed: () {
           Navigator.push(
@@ -132,9 +133,9 @@ class QuizTile extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black87, width: 4.0),
                   borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.black54,
+                  color: blackOverlay,
                   gradient: const LinearGradient(
-                      colors: [Colors.black87, Colors.deepPurpleAccent]),
+                      colors: [Colors.black87, deepPurpleOverlay]),
                 ),
                 alignment: Alignment.center,
                 child: Column(
@@ -151,13 +152,16 @@ class QuizTile extends StatelessWidget {
                     SizedBox(
                       height: 6.0,
                     ),
-                    Text(
-                      description,
-                      style: TextStyle(
-                          color: Colors.white70,
-                          fontStyle: FontStyle.italic,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w300),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        description,
+                        style: TextStyle(
+                            color: Colors.white70,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w500),
+                      ),
                     )
                   ],
                 ),

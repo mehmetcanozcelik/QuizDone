@@ -13,3 +13,5 @@ const Color purpleOverlay = Color(0xFFa657cc);
 const Color deepPurpleOverlay = Color(0xFF7637c3);
 
 const Color yellowOverlay = Color(0xFFE9E646);
+const Color blackOverlay = Color(0xCB60378F);
+const Color lightpurpleOverlay = Color(0xFFCA65F8);

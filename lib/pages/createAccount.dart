@@ -2,6 +2,7 @@
 //@dart=2.9
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quizdone/constants.dart';
 import 'package:quizdone/models/kullanici.dart';
 import 'package:quizdone/services/authenticationservices.dart';
 import 'package:quizdone/services/firestoreService.dart';
@@ -50,7 +51,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               errorStyle: TextStyle(fontSize: 14.0),
                               prefixIcon: Icon(
                                 Icons.supervised_user_circle,
-                                color: Colors.green[800],
+                                color: buttonColor,
                               )),
                           validator: (enteredValue) {
                             if (enteredValue.isEmpty) {
@@ -76,7 +77,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             errorStyle: TextStyle(fontSize: 14.0),
                             prefixIcon: Icon(
                               Icons.mail_outline_outlined,
-                              color: Colors.green[800],
+                              color: buttonColor,
                             )),
                         validator: (enteredValue) {
                           if (enteredValue.isEmpty) {
@@ -101,7 +102,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               errorStyle: TextStyle(fontSize: 14.0),
                               prefixIcon: Icon(
                                 Icons.password_outlined,
-                                color: Colors.green[800],
+                                color: buttonColor,
                               )),
                           validator: (enteredValue) {
                             if (enteredValue.isEmpty) {
@@ -129,7 +130,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 color: Colors.white),
                           ),
                           style: TextButton.styleFrom(
-                              backgroundColor: Colors.green[800]),
+                              backgroundColor: buttonColor),
                         ),
                       ),
                     ],

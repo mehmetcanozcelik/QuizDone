@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors
 //@dart=2.9
 import 'package:flutter/material.dart';
+import 'package:quizdone/constants.dart';
 import 'package:quizdone/pages/addQuestion.dart';
 import 'package:quizdone/services/database.dart';
 import 'package:random_string/random_string.dart';
@@ -79,7 +80,7 @@ class _SuggestQuizState extends State<SuggestQuiz> {
                               errorStyle: TextStyle(fontSize: 14.0),
                               prefixIcon: Icon(
                                 Icons.subject_rounded,
-                                color: Colors.green[800],
+                                color: buttonColor,
                               )),
                           validator: (enteredValue) {
                             if (enteredValue.isEmpty) {
@@ -104,7 +105,7 @@ class _SuggestQuizState extends State<SuggestQuiz> {
                             errorStyle: TextStyle(fontSize: 14.0),
                             prefixIcon: Icon(
                               Icons.document_scanner,
-                              color: Colors.green[800],
+                              color: buttonColor,
                             )),
                         validator: (enteredValue) {
                           if (enteredValue.isEmpty) {
@@ -136,7 +137,7 @@ class _SuggestQuizState extends State<SuggestQuiz> {
                                 color: Colors.white),
                           ),
                           style: TextButton.styleFrom(
-                              backgroundColor: Colors.green[800]),
+                              backgroundColor: buttonColor),
                         ),
                       ),
                     ],

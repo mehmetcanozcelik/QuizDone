@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors
 //@dart=2.9
 import 'package:flutter/material.dart';
+import 'package:quizdone/constants.dart';
 import 'package:quizdone/services/database.dart';
 
 class AddQuestion extends StatefulWidget {
@@ -228,8 +229,8 @@ class _AddQuestionState extends State<AddQuestion> {
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
-                        style: TextButton.styleFrom(
-                            backgroundColor: Colors.green[800]),
+                        style:
+                            TextButton.styleFrom(backgroundColor: buttonColor),
                       ),
                     ),
                   ],

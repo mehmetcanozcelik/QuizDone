@@ -2,6 +2,7 @@
 //@dart=2.9
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quizdone/constants.dart';
 import 'package:quizdone/models/kullanici.dart';
 import 'package:quizdone/pages/createAccount.dart';
 import 'package:quizdone/services/authenticationservices.dart';
@@ -61,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 errorStyle: TextStyle(fontSize: 14.0),
                 prefixIcon: Icon(
                   Icons.mail_outline_outlined,
-                  color: Colors.green[800],
+                  color: buttonColor,
                 )),
             validator: (enteredValue) {
               if (enteredValue.isEmpty) {
@@ -83,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                 errorStyle: TextStyle(fontSize: 14.0),
                 prefixIcon: Icon(
                   Icons.password_outlined,
-                  color: Colors.green[800],
+                  color: buttonColor,
                 )),
             validator: (enteredValue) {
               if (enteredValue.isEmpty) {
@@ -110,8 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  style:
-                      TextButton.styleFrom(backgroundColor: Colors.green[800]),
+                  style: TextButton.styleFrom(backgroundColor: buttonColor),
                 ),
               ),
               SizedBox(

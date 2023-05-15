@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:quizdone/constants.dart';
 
 class NextButton extends StatelessWidget {
   const NextButton({
@@ -12,7 +13,7 @@ class NextButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.deepPurple[700],
+          color: Colors.orangeAccent[700],
           borderRadius: BorderRadius.circular(10.0)),
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Text(

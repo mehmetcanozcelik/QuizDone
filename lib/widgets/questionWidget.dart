@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,11 @@ class QuestionWidget extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         '${indexAction + 1}) $question',
-        style: TextStyle(fontSize: 22.0, color: Colors.black87),
+        style: TextStyle(
+            fontSize: 22.0,
+            color: Colors.black87,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.italic),
       ),
     );
   }
