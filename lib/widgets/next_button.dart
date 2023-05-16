@@ -11,16 +11,15 @@ class NextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: 200.0,
       decoration: BoxDecoration(
-          color: Colors.orangeAccent[700],
-          borderRadius: BorderRadius.circular(10.0)),
+          color: yellowOverlay, borderRadius: BorderRadius.circular(10.0)),
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Text(
         "Next Question",
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black87),
       ),
     );
   }

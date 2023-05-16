@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names
 
 import 'package:flutter/material.dart';
+import 'package:quizdone/constants.dart';
 
 class FinishQuizButton extends StatelessWidget {
   const FinishQuizButton({
@@ -10,16 +11,15 @@ class FinishQuizButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: 200,
       decoration: BoxDecoration(
-          color: Colors.deepPurple[700],
-          borderRadius: BorderRadius.circular(10.0)),
+          color: yellowOverlay, borderRadius: BorderRadius.circular(10.0)),
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Text(
         "Finish Quiz",
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
       ),
     );
   }

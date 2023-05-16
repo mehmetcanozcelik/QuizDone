@@ -51,193 +51,210 @@ class _AddQuestionState extends State<AddQuestion> {
         centerTitle: true,
         title: Image.asset(
           "assets/QuizDonecolor.png",
-          scale: 3.0,
+          scale: 6.0,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black87),
       ),
-      body: ListView(
-        children: [
-          loading
-              ? LinearProgressIndicator()
-              : SizedBox(
-                  height: 0.0,
-                ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/backgroundddd.jpg"),
+                fit: BoxFit.cover)),
+        child: ListView(
+          children: [
+            loading
+                ? LinearProgressIndicator()
+                : SizedBox(
+                    height: 0.0,
+                  ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                              hintText: "Enter your question.",
+                              labelText: "Question : ",
+                              errorStyle: TextStyle(fontSize: 14.0),
+                              prefixIcon: Icon(Icons.question_answer_rounded,
+                                  color: Colors.grey[800])),
+                          validator: (enteredValue) {
+                            if (enteredValue.isEmpty) {
+                              return "Question field can not be left blank.";
+                            } else if (enteredValue.trim().length < 5 ||
+                                enteredValue.trim().length > 140) {
+                              return "Questions must be between 5-140 characters.";
+                            }
+                            return null;
+                          },
+                          onChanged: (enteredValue) {
+                            question = enteredValue;
+                          }),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormField(
                         autocorrect: true,
                         decoration: InputDecoration(
-                            hintText: "Enter your question.",
-                            labelText: "Question : ",
+                            hintText: "Enter the first (CORRECT) option.",
+                            labelText: "Option 1 (Correct Option) :",
                             errorStyle: TextStyle(fontSize: 14.0),
-                            prefixIcon: Icon(Icons.question_answer_rounded,
-                                color: Colors.grey[800])),
+                            prefixIcon: Icon(
+                              Icons.check_circle,
+                              color: Colors.green[800],
+                            )),
                         validator: (enteredValue) {
                           if (enteredValue.isEmpty) {
-                            return "Question field can not be left blank.";
-                          } else if (enteredValue.trim().length < 5 ||
-                              enteredValue.trim().length > 140) {
-                            return "Questions must be between 5-140 characters.";
+                            return "Option field can not be left blank.";
+                          } else if (enteredValue.trim().length > 140) {
+                            return "Options cannot be longer than 140 characters.";
                           }
                           return null;
                         },
                         onChanged: (enteredValue) {
-                          question = enteredValue;
-                        }),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFormField(
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: "Enter the first (CORRECT) option.",
-                          labelText: "Option 1 (Correct Option) :",
-                          errorStyle: TextStyle(fontSize: 14.0),
-                          prefixIcon: Icon(
-                            Icons.check_circle,
-                            color: Colors.green[800],
-                          )),
-                      validator: (enteredValue) {
-                        if (enteredValue.isEmpty) {
-                          return "Option field can not be left blank.";
-                        } else if (enteredValue.trim().length > 140) {
-                          return "Options cannot be longer than 140 characters.";
-                        }
-                        return null;
-                      },
-                      onChanged: (enteredValue) {
-                        option1 = enteredValue;
-                      },
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFormField(
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: "Enter the second option",
-                          labelText: "Option 2 :",
-                          errorStyle: TextStyle(fontSize: 14.0),
-                          prefixIcon: Icon(
-                            Icons.cancel_rounded,
-                            color: Colors.red[800],
-                          )),
-                      validator: (enteredValue) {
-                        if (enteredValue.isEmpty) {
-                          return "Option field can not be left blank.";
-                        } else if (enteredValue.trim().length > 140) {
-                          return "Options cannot be longer than 140 characters.";
-                        }
-                        return null;
-                      },
-                      onChanged: (enteredValue) {
-                        option2 = enteredValue;
-                      },
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFormField(
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: "Enter the third option.",
-                          labelText: "Option 3 :",
-                          errorStyle: TextStyle(fontSize: 14.0),
-                          prefixIcon: Icon(
-                            Icons.cancel_rounded,
-                            color: Colors.red[800],
-                          )),
-                      validator: (enteredValue) {
-                        if (enteredValue.isEmpty) {
-                          return "Option field can not be left blank.";
-                        } else if (enteredValue.trim().length > 140) {
-                          return "Options cannot be longer than 140 characters.";
-                        }
-                        return null;
-                      },
-                      onChanged: (enteredValue) {
-                        option3 = enteredValue;
-                      },
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFormField(
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          hintText: "Enter the fourth option.",
-                          labelText: "Option 4 :",
-                          errorStyle: TextStyle(fontSize: 14.0),
-                          prefixIcon: Icon(
-                            Icons.cancel_rounded,
-                            color: Colors.red[800],
-                          )),
-                      validator: (enteredValue) {
-                        if (enteredValue.isEmpty) {
-                          return "Option field can not be left blank.";
-                        } else if (enteredValue.trim().length > 140) {
-                          return "Options cannot be longer than 140 characters.";
-                        }
-                        return null;
-                      },
-                      onChanged: (enteredValue) {
-                        option4 = enteredValue;
-                      },
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: TextButton(
-                        onPressed: () {
-                          uploadQuestionData();
+                          option1 = enteredValue;
                         },
-                        child: Text(
-                          "Add Question",
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        style: TextButton.styleFrom(
-                            backgroundColor: Colors.orange[800]),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormField(
+                        autocorrect: true,
+                        decoration: InputDecoration(
+                            hintText: "Enter the second option",
+                            labelText: "Option 2 :",
+                            errorStyle: TextStyle(fontSize: 14.0),
+                            prefixIcon: Icon(
+                              Icons.cancel_rounded,
+                              color: Colors.red[800],
+                            )),
+                        validator: (enteredValue) {
+                          if (enteredValue.isEmpty) {
+                            return "Option field can not be left blank.";
+                          } else if (enteredValue.trim().length > 140) {
+                            return "Options cannot be longer than 140 characters.";
+                          }
+                          return null;
                         },
-                        child: Text(
-                          "Suggest Quiz",
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        style:
-                            TextButton.styleFrom(backgroundColor: buttonColor),
+                        onChanged: (enteredValue) {
+                          option2 = enteredValue;
+                        },
                       ),
-                    ),
-                  ],
-                )),
-          )
-        ],
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormField(
+                        autocorrect: true,
+                        decoration: InputDecoration(
+                            hintText: "Enter the third option.",
+                            labelText: "Option 3 :",
+                            errorStyle: TextStyle(fontSize: 14.0),
+                            prefixIcon: Icon(
+                              Icons.cancel_rounded,
+                              color: Colors.red[800],
+                            )),
+                        validator: (enteredValue) {
+                          if (enteredValue.isEmpty) {
+                            return "Option field can not be left blank.";
+                          } else if (enteredValue.trim().length > 140) {
+                            return "Options cannot be longer than 140 characters.";
+                          }
+                          return null;
+                        },
+                        onChanged: (enteredValue) {
+                          option3 = enteredValue;
+                        },
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormField(
+                        autocorrect: true,
+                        decoration: InputDecoration(
+                            hintText: "Enter the fourth option.",
+                            labelText: "Option 4 :",
+                            errorStyle: TextStyle(fontSize: 14.0),
+                            prefixIcon: Icon(
+                              Icons.cancel_rounded,
+                              color: Colors.red[800],
+                            )),
+                        validator: (enteredValue) {
+                          if (enteredValue.isEmpty) {
+                            return "Option field can not be left blank.";
+                          } else if (enteredValue.trim().length > 140) {
+                            return "Options cannot be longer than 140 characters.";
+                          }
+                          return null;
+                        },
+                        onChanged: (enteredValue) {
+                          option4 = enteredValue;
+                        },
+                      ),
+                      SizedBox(
+                        height: 85.0,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: TextButton(
+                          onPressed: () {
+                            uploadQuestionData();
+                          },
+                          child: Text(
+                            "Add Another Question",
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.orange[800]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: TextButton(
+                          onPressed: () {
+                            showSnackBar();
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Complete & Suggest This Quiz",
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.green),
+                        ),
+                      ),
+                    ],
+                  )),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  showSnackBar() {
+    String errorMessage;
+
+    errorMessage =
+        "Your Quiz suggestion has been sent and will be reviewed by our team. Thank you!";
+
+    var snackBar = SnackBar(content: Text(errorMessage.toString()));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

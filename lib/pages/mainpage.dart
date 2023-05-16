@@ -22,7 +22,8 @@ class _MainPageState extends State<MainPage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/backgrounddd.jpg"), fit: BoxFit.cover)),
+              image: AssetImage("assets/backgroundddd.jpg"),
+              fit: BoxFit.cover)),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 24),
         child: StreamBuilder(
@@ -65,7 +66,7 @@ class _MainPageState extends State<MainPage> {
         centerTitle: true,
         title: Image.asset(
           "assets/QuizDonecolor.png",
-          scale: 3.0,
+          scale: 6.0,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -75,7 +76,10 @@ class _MainPageState extends State<MainPage> {
               onPressed: _signOutApp, icon: Icon(Icons.exit_to_app_rounded))
         ],
       ),
-      body: quizList(),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 12.0),
+        child: quizList(),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         child: Icon(Icons.add_task),
@@ -135,7 +139,7 @@ class QuizTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                   color: blackOverlay,
                   gradient: const LinearGradient(
-                      colors: [Colors.black87, deepPurpleOverlay]),
+                      colors: [Colors.black87, Colors.black38]),
                 ),
                 alignment: Alignment.center,
                 child: Column(

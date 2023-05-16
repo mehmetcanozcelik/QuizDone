@@ -5,8 +5,11 @@ import 'package:quizdone/directed.dart';
 import 'package:quizdone/models/questionModel.dart';
 import 'package:quizdone/services/authenticationservices.dart';
 import 'package:quizdone/services/database.dart';
+import 'package:flutter/services.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   runApp(MyApp());
 }
 

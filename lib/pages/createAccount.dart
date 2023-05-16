@@ -27,116 +27,131 @@ class _CreateAccountState extends State<CreateAccount> {
         appBar: AppBar(
           title: Text("Create an Account"),
         ),
-        body: ListView(
-          children: [
-            loading
-                ? LinearProgressIndicator()
-                : SizedBox(
-                    height: 0.0,
-                  ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                          autocorrect: true,
-                          decoration: InputDecoration(
-                              hintText: "Enter an Username",
-                              labelText: "Username :",
-                              errorStyle: TextStyle(fontSize: 14.0),
-                              prefixIcon: Icon(
-                                Icons.supervised_user_circle,
-                                color: buttonColor,
-                              )),
-                          validator: (enteredValue) {
-                            if (enteredValue.isEmpty) {
-                              return "Username field can not be left blank.";
-                            } else if (enteredValue.trim().length < 5 ||
-                                enteredValue.trim().length > 12) {
-                              return "Username must be between 5-12 characters.";
-                            }
-                            return null;
-                          },
-                          onSaved: (enteredValue) {
-                            username = enteredValue;
-                          }),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                        autocorrect: true,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            hintText: "Enter Your Email Address",
-                            labelText: "Email :",
-                            errorStyle: TextStyle(fontSize: 14.0),
-                            prefixIcon: Icon(
-                              Icons.mail_outline_outlined,
-                              color: buttonColor,
-                            )),
-                        validator: (enteredValue) {
-                          if (enteredValue.isEmpty) {
-                            return "Please enter your email address.";
-                          } else if (!enteredValue.contains("@")) {
-                            return "Please enter a valid email address.";
-                          }
-                          return null;
-                        },
-                        onSaved: (enteredValue) {
-                          email = enteredValue;
-                        },
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              hintText: "Enter Your Password",
-                              labelText: "Password :",
-                              errorStyle: TextStyle(fontSize: 14.0),
-                              prefixIcon: Icon(
-                                Icons.password_outlined,
-                                color: buttonColor,
-                              )),
-                          validator: (enteredValue) {
-                            if (enteredValue.isEmpty) {
-                              return "Please enter your password.";
-                            } else if (enteredValue.trim().length < 4) {
-                              return "Password must be 4 or more characters.";
-                            }
-                            return null;
-                          },
-                          onSaved: (enteredValue) {
-                            password = enteredValue;
-                          }),
-                      SizedBox(
-                        height: 50.0,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        child: TextButton(
-                          onPressed: _createUser,
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+        body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/backgroundddd.jpg"),
+                  fit: BoxFit.cover)),
+          child: ListView(
+            children: [
+              loading
+                  ? LinearProgressIndicator()
+                  : SizedBox(
+                      height: 0.0,
+                    ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: 80.0,
+                            minHeight: 80.0,
                           ),
-                          style: TextButton.styleFrom(
-                              backgroundColor: buttonColor),
+                          child: TextFormField(
+                              autocorrect: true,
+                              decoration: InputDecoration(
+                                  hintText: "Enter an Username",
+                                  labelText: "Username :",
+                                  errorStyle: TextStyle(fontSize: 14.0),
+                                  prefixIcon: Icon(
+                                    Icons.supervised_user_circle,
+                                    color: buttonColor,
+                                  )),
+                              validator: (enteredValue) {
+                                if (enteredValue.isEmpty) {
+                                  return "Username field can not be left blank.";
+                                } else if (enteredValue.trim().length < 5 ||
+                                    enteredValue.trim().length > 12) {
+                                  return "Username must be between 5-12 characters.";
+                                }
+                                return null;
+                              },
+                              onSaved: (enteredValue) {
+                                username = enteredValue;
+                              }),
                         ),
-                      ),
-                    ],
-                  )),
-            )
-          ],
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: 80.0,
+                            minHeight: 80.0,
+                          ),
+                          child: TextFormField(
+                            autocorrect: true,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                                hintText: "Enter Your Email Address",
+                                labelText: "Email :",
+                                errorStyle: TextStyle(fontSize: 14.0),
+                                prefixIcon: Icon(
+                                  Icons.mail_outline_outlined,
+                                  color: buttonColor,
+                                )),
+                            validator: (enteredValue) {
+                              if (enteredValue.isEmpty) {
+                                return "Please enter your email address.";
+                              } else if (!enteredValue.contains("@")) {
+                                return "Please enter a valid email address.";
+                              }
+                              return null;
+                            },
+                            onSaved: (enteredValue) {
+                              email = enteredValue;
+                            },
+                          ),
+                        ),
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: 80.0,
+                            minHeight: 80.0,
+                          ),
+                          child: TextFormField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  hintText: "Enter Your Password",
+                                  labelText: "Password :",
+                                  errorStyle: TextStyle(fontSize: 14.0),
+                                  prefixIcon: Icon(
+                                    Icons.password_outlined,
+                                    color: buttonColor,
+                                  )),
+                              validator: (enteredValue) {
+                                if (enteredValue.isEmpty) {
+                                  return "Please enter your password.";
+                                } else if (enteredValue.trim().length < 4) {
+                                  return "Password must be 4 or more characters.";
+                                }
+                                return null;
+                              },
+                              onSaved: (enteredValue) {
+                                password = enteredValue;
+                              }),
+                        ),
+                        Container(
+                          width: 200.0,
+                          child: TextButton(
+                            onPressed: _createUser,
+                            child: Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            style: TextButton.styleFrom(
+                                backgroundColor: buttonColor),
+                          ),
+                        ),
+                      ],
+                    )),
+              )
+            ],
+          ),
         ));
   }
 
@@ -157,6 +172,7 @@ class _CreateAccountState extends State<CreateAccount> {
           FirestoreService()
               .createUser(id: kullanici.id, email: email, username: username);
         }
+        showSnackBar();
         Navigator.pop(context);
       } catch (error) {
         setState(() {
@@ -181,6 +197,15 @@ class _CreateAccountState extends State<CreateAccount> {
     } else if (errorCode == "ERROR_OPERATION_NOT_ALLOWED") {
       errorMessage = "This operation not allowed.";
     }
+
+    var snackBar = SnackBar(content: Text(errorMessage.toString()));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  showSnackBar() {
+    String errorMessage;
+
+    errorMessage = "Welcome to QuizDone!";
 
     var snackBar = SnackBar(content: Text(errorMessage.toString()));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);

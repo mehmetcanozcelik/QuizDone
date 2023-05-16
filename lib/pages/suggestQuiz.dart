@@ -50,100 +50,106 @@ class _SuggestQuizState extends State<SuggestQuiz> {
           centerTitle: true,
           title: Image.asset(
             "assets/QuizDonecolor.png",
-            scale: 3.0,
+            scale: 6.0,
           ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           iconTheme: IconThemeData(color: Colors.black87),
         ),
-        body: ListView(
-          children: [
-            loading
-                ? LinearProgressIndicator()
-                : SizedBox(
-                    height: 0.0,
-                  ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
+        body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/backgroundddd.jpg"),
+                  fit: BoxFit.cover)),
+          child: ListView(
+            children: [
+              loading
+                  ? LinearProgressIndicator()
+                  : SizedBox(
+                      height: 0.0,
+                    ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                            autocorrect: true,
+                            decoration: InputDecoration(
+                                hintText: "Enter the subject of Quiz.",
+                                labelText: "Subject of Quiz : ",
+                                errorStyle: TextStyle(fontSize: 14.0),
+                                prefixIcon: Icon(
+                                  Icons.subject_rounded,
+                                  color: buttonColor,
+                                )),
+                            validator: (enteredValue) {
+                              if (enteredValue.isEmpty) {
+                                return "Subject field can not be left blank.";
+                              } else if (enteredValue.trim().length < 5 ||
+                                  enteredValue.trim().length > 25) {
+                                return "Subject must be between 5-25 characters.";
+                              }
+                              return null;
+                            },
+                            onChanged: (enteredValue) {
+                              quizSubject = enteredValue;
+                            }),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        TextFormField(
                           autocorrect: true,
                           decoration: InputDecoration(
-                              hintText: "Enter the subject of Quiz.",
-                              labelText: "Subject of Quiz : ",
+                              hintText: "Enter the description of your Quiz.",
+                              labelText: "Description :",
                               errorStyle: TextStyle(fontSize: 14.0),
                               prefixIcon: Icon(
-                                Icons.subject_rounded,
+                                Icons.document_scanner,
                                 color: buttonColor,
                               )),
                           validator: (enteredValue) {
                             if (enteredValue.isEmpty) {
-                              return "Subject field can not be left blank.";
+                              return "Description field can not be left blank.";
                             } else if (enteredValue.trim().length < 5 ||
-                                enteredValue.trim().length > 25) {
-                              return "Subject must be between 5-25 characters.";
+                                enteredValue.trim().length > 100) {
+                              return "Description must be between 5-100 characters.";
                             }
                             return null;
                           },
                           onChanged: (enteredValue) {
-                            quizSubject = enteredValue;
-                          }),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            hintText: "Enter the description of your Quiz.",
-                            labelText: "Description :",
-                            errorStyle: TextStyle(fontSize: 14.0),
-                            prefixIcon: Icon(
-                              Icons.document_scanner,
-                              color: buttonColor,
-                            )),
-                        validator: (enteredValue) {
-                          if (enteredValue.isEmpty) {
-                            return "Description field can not be left blank.";
-                          } else if (enteredValue.trim().length < 5 ||
-                              enteredValue.trim().length > 100) {
-                            return "Description must be between 5-100 characters.";
-                          }
-                          return null;
-                        },
-                        onChanged: (enteredValue) {
-                          quizDescription = enteredValue;
-                        },
-                      ),
-                      SizedBox(
-                        height: 300.0,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        child: TextButton(
-                          onPressed: () {
-                            suggestQuiz();
+                            quizDescription = enteredValue;
                           },
-                          child: Text(
-                            "Create a Quiz",
-                            style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          style: TextButton.styleFrom(
-                              backgroundColor: buttonColor),
                         ),
-                      ),
-                    ],
-                  )),
-            )
-          ],
+                        SizedBox(
+                          height: 420.0,
+                        ),
+                        Container(
+                          width: 200.0,
+                          child: TextButton(
+                            onPressed: () {
+                              suggestQuiz();
+                            },
+                            child: Text(
+                              "Create a Quiz",
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            style: TextButton.styleFrom(
+                                backgroundColor: yellowOverlay),
+                          ),
+                        ),
+                      ],
+                    )),
+              )
+            ],
+          ),
         ));
   }
 }

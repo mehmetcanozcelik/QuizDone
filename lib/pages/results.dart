@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:quizdone/constants.dart';
+import 'package:quizdone/pages/mainpage.dart';
 
 class ResultBox extends StatelessWidget {
   const ResultBox(
@@ -93,7 +94,28 @@ class ResultBox extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             fontSize: 20.0),
                       )))),
-            )
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            GestureDetector(
+              onTap: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => MainPage())),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Container(
+                      color: Colors.green,
+                      height: 40.0,
+                      width: 200.0,
+                      child: Center(
+                          child: Text(
+                        "Go to Main Menu",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.0),
+                      )))),
+            ),
           ],
         ),
       ),

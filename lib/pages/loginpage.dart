@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:quizdone/constants.dart';
 import 'package:quizdone/models/kullanici.dart';
 import 'package:quizdone/pages/createAccount.dart';
+import 'package:quizdone/pages/resetPassword.dart';
 import 'package:quizdone/services/authenticationservices.dart';
 import 'package:quizdone/services/firestoreService.dart';
 
@@ -22,14 +23,22 @@ class _LoginPageState extends State<LoginPage> {
   String email, password;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/backgroundddd.jpg"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
         key: _scaffoldKey,
         body: Stack(
           children: [
             _pageElements(),
             _loadingAnimation(),
           ],
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _loadingAnimation() {
@@ -54,50 +63,59 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 40.0,
           ),
-          TextFormField(
-            autocorrect: true,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-                hintText: "Your Email Address",
-                errorStyle: TextStyle(fontSize: 14.0),
-                prefixIcon: Icon(
-                  Icons.mail_outline_outlined,
-                  color: buttonColor,
-                )),
-            validator: (enteredValue) {
-              if (enteredValue.isEmpty) {
-                return "Please enter your email address.";
-              } else if (!enteredValue.contains("@")) {
-                return "Please enter a valid email address.";
-              }
-              return null;
-            },
-            onSaved: (enteredValue) => email = enteredValue,
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: 70.0,
+              minHeight: 70.0,
+            ),
+            child: TextFormField(
+              autocorrect: true,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                  hintText: "Your Email Address",
+                  errorStyle: TextStyle(fontSize: 14.0),
+                  prefixIcon: Icon(
+                    Icons.mail_outline_outlined,
+                    color: buttonColor,
+                  )),
+              validator: (enteredValue) {
+                if (enteredValue.isEmpty) {
+                  return "Please enter your email address.";
+                } else if (!enteredValue.contains("@")) {
+                  return "Please enter a valid email address.";
+                }
+                return null;
+              },
+              onSaved: (enteredValue) => email = enteredValue,
+            ),
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: 70.0,
+              minHeight: 70.0,
+            ),
+            child: TextFormField(
+              obscureText: true,
+              decoration: InputDecoration(
+                  hintText: "Password",
+                  errorStyle: TextStyle(fontSize: 14.0),
+                  prefixIcon: Icon(
+                    Icons.password_outlined,
+                    color: buttonColor,
+                  )),
+              validator: (enteredValue) {
+                if (enteredValue.isEmpty) {
+                  return "Please enter your password.";
+                } else if (enteredValue.trim().length < 4) {
+                  return "Password must be 4 or more characters.";
+                }
+                return null;
+              },
+              onSaved: (enteredValue) => password = enteredValue,
+            ),
           ),
           SizedBox(
             height: 10.0,
-          ),
-          TextFormField(
-            obscureText: true,
-            decoration: InputDecoration(
-                hintText: "Password",
-                errorStyle: TextStyle(fontSize: 14.0),
-                prefixIcon: Icon(
-                  Icons.password_outlined,
-                  color: buttonColor,
-                )),
-            validator: (enteredValue) {
-              if (enteredValue.isEmpty) {
-                return "Please enter your password.";
-              } else if (enteredValue.trim().length < 4) {
-                return "Password must be 4 or more characters.";
-              }
-              return null;
-            },
-            onSaved: (enteredValue) => password = enteredValue,
-          ),
-          SizedBox(
-            height: 20.0,
           ),
           Row(
             children: [
@@ -111,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  style: TextButton.styleFrom(backgroundColor: buttonColor),
+                  style: TextButton.styleFrom(backgroundColor: Colors.green),
                 ),
               ),
               SizedBox(
@@ -137,7 +155,11 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           SizedBox(height: 10.0),
-          Center(child: Text("or")),
+          Center(
+              child: Text(
+            "or",
+            style: TextStyle(color: Colors.white),
+          )),
           SizedBox(height: 10.0),
           InkWell(
             onTap: _signinWithGoogle,
@@ -148,7 +170,17 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           SizedBox(height: 20.0),
-          Center(child: Text("Forgot my Password")),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            TextButton(
+              child: Text(
+                "Forgot your Password?",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              onPressed: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => ResetPage())),
+            )
+          ]),
         ],
       ),
     );

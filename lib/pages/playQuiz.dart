@@ -143,9 +143,9 @@ class _playQuizState extends State<playQuiz> {
                   centerTitle: true,
                   title: Image.asset(
                     "assets/QuizDonecolor.png",
-                    scale: 3.0,
+                    scale: 6,
                   ),
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: Colors.white,
                   elevation: 0.0,
                   iconTheme: IconThemeData(color: Colors.black87),
                   actions: [
@@ -162,12 +162,15 @@ class _playQuizState extends State<playQuiz> {
                     ? Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage("assets/backgrounddd.jpg"),
+                                image: AssetImage("assets/backgroundddd.jpg"),
                                 fit: BoxFit.cover)),
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: 15.0,
+                            ),
                             QuestionWidget(
                                 question: extractedData[index].title,
                                 indexAction: index,
@@ -176,7 +179,7 @@ class _playQuizState extends State<playQuiz> {
                               color: Colors.black87,
                             ),
                             SizedBox(
-                              height: 25.0,
+                              height: 15.0,
                             ),
                             for (int i = 0;
                                 i < extractedData[index].options.length;
@@ -199,7 +202,7 @@ class _playQuizState extends State<playQuiz> {
                                               true
                                           ? correct
                                           : incorrect
-                                      : buttonColor,
+                                      : deepestPurple,
                                 ),
                               ),
                           ],
