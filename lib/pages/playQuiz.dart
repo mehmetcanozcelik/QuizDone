@@ -158,66 +158,9 @@ class _playQuizState extends State<playQuiz> {
                     ),
                   ],
                 ),
-                body: (extractedData[index].subject == quizId)
-                    ? Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("assets/backgroundddd.jpg"),
-                                fit: BoxFit.cover)),
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 15.0,
-                            ),
-                            QuestionWidget(
-                                question: extractedData[index].title,
-                                indexAction: index,
-                                totalQuestions: extractedData.length),
-                            Divider(
-                              color: Colors.black87,
-                            ),
-                            SizedBox(
-                              height: 15.0,
-                            ),
-                            for (int i = 0;
-                                i < extractedData[index].options.length;
-                                i++)
-                              GestureDetector(
-                                onTap: () => checkAnswer(extractedData[index]
-                                    .options
-                                    .values
-                                    .toList()[i]),
-                                child: OptionCard(
-                                  option: extractedData[index]
-                                      .options
-                                      .keys
-                                      .toList()[i],
-                                  color: isClicked
-                                      ? extractedData[index]
-                                                  .options
-                                                  .values
-                                                  .toList()[i] ==
-                                              true
-                                          ? correct
-                                          : incorrect
-                                      : deepestPurple,
-                                ),
-                              ),
-                          ],
-                        ),
-                      )
-                    : Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("assets/finish.jpg"),
-                                fit: BoxFit.cover)),
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height,
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      ),
-                floatingActionButton: (extractedData[index].subject == quizId)
+                body: _buildQuizBody(extractedData),
+                floatingActionButton: (index < extractedData.length &&
+                        extractedData[index].subject == quizId)
                     ? GestureDetector(
                         onTap: () => nextQuestion(questionIndex),
                         child: Padding(
@@ -245,5 +188,63 @@ class _playQuizState extends State<playQuiz> {
                 child: Center(child: CircularProgressIndicator()));
           }
         });
+  }
+
+  Widget _buildQuizBody(List<Question> extractedData) {
+    while (index < extractedData.length &&
+        extractedData[index].subject != quizId) {
+      index++;
+    }
+
+    if (index < extractedData.length) {
+      return Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/backgroundddd.jpg"),
+                fit: BoxFit.cover)),
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 15.0,
+            ),
+            QuestionWidget(
+                question: extractedData[index].title,
+                indexAction: index,
+                totalQuestions: extractedData.length),
+            Divider(
+              color: Colors.black87,
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            for (int i = 0; i < extractedData[index].options.length; i++)
+              GestureDetector(
+                onTap: () => checkAnswer(
+                    extractedData[index].options.values.toList()[i]),
+                child: OptionCard(
+                  option: extractedData[index].options.keys.toList()[i],
+                  color: isClicked
+                      ? extractedData[index].options.values.toList()[i] == true
+                          ? correct
+                          : incorrect
+                      : deepestPurple,
+                ),
+              ),
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/finish.jpg"), fit: BoxFit.cover),
+        ),
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+      );
+    }
   }
 }

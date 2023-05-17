@@ -54,9 +54,9 @@ class ResultBox extends StatelessWidget {
                         : Colors.white),
               ),
               radius: 60.0,
-              backgroundColor: result / 100 == questionLength / 2
+              backgroundColor: result > 700 && result < 1000
                   ? Colors.yellow
-                  : result / 100 < questionLength / 2
+                  : result < 750
                       ? incorrect
                       : correct,
             ),
@@ -64,9 +64,9 @@ class ResultBox extends StatelessWidget {
               height: 20.0,
             ),
             Text(
-              result / 100 == questionLength / 2
+              result > 700 && result < 1000
                   ? "Keep trying."
-                  : result / 100 < questionLength / 2
+                  : result < 750
                       ? "Not that good."
                       : "Great!",
               style: TextStyle(

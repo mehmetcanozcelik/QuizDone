@@ -19,7 +19,7 @@ class QuestionWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.centerLeft,
       child: Text(
-        '${indexAction + 1}) $question',
+        '$question',
         style: TextStyle(
             fontSize: 22.0,
             color: Colors.black87,
