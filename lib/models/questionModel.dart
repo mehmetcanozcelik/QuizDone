@@ -1,17 +1,15 @@
-//@dart=2.9
-
 // ignore_for_file: file_names
 
 import 'package:flutter/cupertino.dart';
 
 class QuestionModel {
-  String question;
-  String option1;
-  String option2;
-  String option3;
-  String option4;
-  String correctOption;
-  bool answered;
+  late String question;
+  late String option1;
+  late String option2;
+  late String option3;
+  late String option4;
+  late String correctOption;
+  late bool answered;
 }
 
 class Question {
@@ -21,10 +19,10 @@ class Question {
   final String subject;
 
   Question(
-      {@required this.id,
-      @required this.title,
-      @required this.options,
-      @required this.subject});
+      {required this.id,
+      required this.title,
+      required this.options,
+      required this.subject});
 
   @override
   String toString() {

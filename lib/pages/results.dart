@@ -21,7 +21,7 @@ class ResultBox extends StatelessWidget {
     return AlertDialog(
       backgroundColor: deepPurpleOverlay,
       content: Padding(
-        padding: EdgeInsets.all(60.0),
+        padding: EdgeInsets.all(10.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

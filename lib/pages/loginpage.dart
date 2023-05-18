@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, missing_return
-//@dart=2.9
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizdone/constants.dart';
@@ -10,7 +10,7 @@ import 'package:quizdone/services/authenticationservices.dart';
 import 'package:quizdone/services/firestoreService.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool loading = false;
-  String email, password;
+  late String email, password;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,14 +79,14 @@ class _LoginPageState extends State<LoginPage> {
                     color: buttonColor,
                   )),
               validator: (enteredValue) {
-                if (enteredValue.isEmpty) {
+                if (enteredValue!.isEmpty) {
                   return "Please enter your email address.";
                 } else if (!enteredValue.contains("@")) {
                   return "Please enter a valid email address.";
                 }
                 return null;
               },
-              onSaved: (enteredValue) => email = enteredValue,
+              onSaved: (enteredValue) => email = enteredValue!,
             ),
           ),
           ConstrainedBox(
@@ -104,14 +104,14 @@ class _LoginPageState extends State<LoginPage> {
                     color: buttonColor,
                   )),
               validator: (enteredValue) {
-                if (enteredValue.isEmpty) {
+                if (enteredValue!.isEmpty) {
                   return "Please enter your password.";
                 } else if (enteredValue.trim().length < 4) {
                   return "Password must be 4 or more characters.";
                 }
                 return null;
               },
-              onSaved: (enteredValue) => password = enteredValue,
+              onSaved: (enteredValue) => password = enteredValue!,
             ),
           ),
           SizedBox(
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                         builder: (context) => CreateAccount()));
                   },
                   child: Text(
-                    "Create an Account",
+                    "Create Account",
                     style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -190,8 +190,8 @@ class _LoginPageState extends State<LoginPage> {
     final _authenticationService =
         Provider.of<AuthenticationService>(context, listen: false);
 
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       setState(() {
         loading = true;
       });
@@ -202,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           loading = false;
         });
-        String errorCode = error.code;
+        String errorCode = error.toString();
 
         showError(errorCode: errorCode);
       }
@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
       loading = true;
     });
     try {
-      Kullanici kullanici = await _authenticationService.signinWithGoogle();
+      Kullanici? kullanici = await _authenticationService.signinWithGoogle();
       if (kullanici != null) {
         Kullanici firestoreUser =
             await FirestoreService().checkUser(kullanici.id);
@@ -232,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         loading = false;
       });
-      String errorCode = error.code;
+      String errorCode = error.toString();
 
       showError(errorCode: errorCode);
     }
@@ -243,13 +243,16 @@ class _LoginPageState extends State<LoginPage> {
 
     if (errorCode == "ERROR_USER_NOT_FOUND") {
       errorMessage = "This user is not found.";
-    } else if (errorCode == "ERROR_INVALID_EMAIL") {
+    } else if (errorCode ==
+        "PlatformException(ERROR_INVALID_EMAIL, The email address is badly formatted., null, null)") {
       errorMessage = "This email is not valid.";
-    } else if (errorCode == "ERROR_WRONG_PASSWORD") {
+    } else if (errorCode ==
+        "PlatformException(ERROR_WRONG_PASSWORD, The password is invalid or the user does not have a password., null, null)") {
       errorMessage = "Your password is not correct.";
     } else if (errorCode == "ERROR_USER_DISABLED") {
       errorMessage = "This user is banned by admin.";
     } else {
+      print(errorCode);
       errorMessage = "Unidentified error has occurred. $errorCode ";
     }
 

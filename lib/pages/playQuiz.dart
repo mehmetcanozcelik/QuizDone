@@ -183,7 +183,7 @@ class _playQuizState extends State<playQuiz> {
             return Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/backgrounddd.jpg"),
+                        image: AssetImage("assets/backgroundddd.jpg"),
                         fit: BoxFit.cover)),
                 child: Center(child: CircularProgressIndicator()));
           }

@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  flutter_native_splash:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -71,11 +71,9 @@ flutter:
      - assets/quizDonewhite.png
      - assets/logosec.png
      - assets/QuizDonecolor.png
-     - assets/background.jpg
-     - assets/backgroundd.jpg
-     - assets/backgrounddd.jpg
      - assets/finish.jpg
      - assets/backgroundddd.jpg
+     - assets/splashscreenn.png
 
 
 
