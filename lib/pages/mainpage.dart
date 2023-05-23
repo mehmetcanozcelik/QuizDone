@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizdone/constants.dart';
+import 'package:quizdone/pages/loginpage.dart';
 import 'package:quizdone/pages/playQuiz.dart';
 import 'package:quizdone/pages/suggestQuiz.dart';
 import 'package:quizdone/services/authenticationservices.dart';
@@ -93,6 +94,8 @@ class _MainPageState extends State<MainPage> {
 
   void _signOutApp() {
     Provider.of<AuthenticationService>(context, listen: false).signOut();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }
 
