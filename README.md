@@ -1,1 +1,1 @@
-QuizDone is a quiz application in Android where you can solve some quizes and also you can add/suggest questions for other people to solve. It's developed with Flutter/Dart.
+My Gradiuation Project, "QuizDone" is a quiz application in Android where you can solve some quizes and also you can add/suggest questions for other people to solve. It's developed with Flutter/Dart. Google Firebase services are used for basic backend purpose.
